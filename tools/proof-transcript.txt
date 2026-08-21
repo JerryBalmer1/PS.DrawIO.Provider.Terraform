@@ -1,0 +1,59 @@
+=== Terraform contract spike proof ===
+Manifest: C:\__Code\PS.DrawIO.Provider.Terraform\src\PS.DrawIO.Provider.Terraform.psd1
+Registry: C:\__Code\PS.DrawIO.Registry @ v1.0.0
+Registry HEAD=53cd0bb  v1.0.0=8e96f4d
+Registry src/ matches v1.0.0 (ok to import working tree).
+Imported PS.DrawIO.Registry 1.0.0
+
+--- Test-PSDrawIOProviderConformance ---
+[95m
+[95mStarting discovery in 1 files.[0m
+[95mDiscovery found 4 tests in 257ms.[0m
+[95mRunning tests.[0m
+[32m[+] C:\__Code\PS.DrawIO.Registry\src\Conformance\Provider.Conformance.Tests.ps1[0m[90m 1.56s (250ms|1.09s)[0m
+[97mTests completed in 1.6s[0m
+[32mTests Passed: 4, [0m[90mFailed: 0, [0m[90mSkipped: 0, [0m[90mInconclusive: 0, [0m[37m[0m[90mNotRun: 0[0m
+Conformance result: True
+
+--- Register-PSDrawIOProvider ---
+
+ProviderName    : Terraform
+ContractVersion : 1
+Capabilities    : {Shapes, Links, LayoutHints}
+
+
+Shape keys: ExplicitDependsOn, ImplicitReference, ModuleBoundary, ProviderAttachment, TfLocal, TfModule, TfOutput, TfProvider, TfResource, TfVariable
+
+--- Resolve-PSDrawIOShape node: TfResource ---
+
+Name  : Style
+Value : rounded=0;whiteSpace=wrap;html=1;
+
+Name  : LinkTemplate
+Value : vscode://file/{path}:{line}
+
+Name  : Variants
+Value : {Managed, Data}
+
+Name  : LayoutHints
+Value : {[Direction, Vertical], [Group, Resources]}
+
+
+
+--- Resolve-PSDrawIOShape edge: ImplicitReference ---
+
+Name  : Edge
+Value : True
+
+Name  : Style
+Value : endArrow=open;dashed=1;
+
+
+
+--- Test-PSDrawIOCapability ---
+  Shapes       => True
+  Links        => True
+  LayoutHints  => True
+  Analysis     => False
+
+=== PROOF COMPLETE ===
