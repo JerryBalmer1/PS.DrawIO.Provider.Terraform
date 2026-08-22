@@ -1,0 +1,102 @@
+=== Cross-provider contract spike proof ===
+Terraform manifest:  C:\__Code\PS.DrawIO.Provider.Terraform\src\PS.DrawIO.Provider.Terraform.psd1
+PowerShell manifest: C:\__Code\PS.DrawIO.Provider.PowerShell\src\PS.DrawIO.Provider.PowerShell.psd1
+Registry: C:\__Code\PS.DrawIO.Registry @ v1.1.0
+PowerShell provider tag preference: v1.0.0
+Registry HEAD=ce38ef1  v1.1.0=e6c19e8
+Registry src/ matches v1.1.0 (ok to use working tree).
+PowerShell provider HEAD=facb1ed  v1.0.0=3c26691
+PowerShell provider src/ matches v1.0.0 (ok to use working tree).
+Imported PS.DrawIO.Registry 1.1.0
+
+--- Public surface (join-related?) ---
+Get-PSDrawIOProvider, New-PSDrawIOProvider, Register-PSDrawIOProvider, Resolve-PSDrawIOShape, Test-PSDrawIOCapability, Test-PSDrawIOName, Test-PSDrawIOProviderConformance, Unregister-PSDrawIOProvider
+
+--- Conformance: Terraform spike ---
+
+Starting discovery in 1 files.
+Discovery found 4 tests in 15ms.
+Running tests.
+[+] C:\__Code\PS.DrawIO.Registry\src\Conformance\Provider.Conformance.Tests.ps1
+ 71ms (4ms|52ms)
+Tests completed in 72ms
+Tests Passed: 4, 
+Failed: 0, 
+Skipped: 0, 
+Inconclusive: 0, 
+
+NotRun: 0
+Terraform conformance: True
+
+--- Conformance: PowerShell provider ---
+
+Starting discovery in 1 files.
+Discovery found 4 tests in 15ms.
+Running tests.
+[+] C:\__Code\PS.DrawIO.Registry\src\Conformance\Provider.Conformance.Tests.ps1
+ 52ms (4ms|33ms)
+Tests completed in 53ms
+Tests Passed: 4, 
+Failed: 0, 
+Skipped: 0, 
+Inconclusive: 0, 
+
+NotRun: 0
+PowerShell conformance: True
+
+--- Dual Register-PSDrawIOProvider ---
+Registered: PowerShell, Terraform
+Terraform shapes: CrossProviderReference, ExplicitDependsOn, ImplicitReference, ModuleBoundary, ProviderAttachment, TfLocal, TfModule, TfOutput, TfProvider, TfResource, TfVariable
+PowerShell shapes: External, Inherits, Internal, PSClass, PSEnum, PSFunction, PSModule, Unresolved
+
+--- Resolve CrossProviderReference (Terraform) ---
+
+Name  : Edge
+Value : True
+
+Name  : Style
+Value : endArrow=open;dashed=1;dashPattern=2 2;
+
+
+Cross shape keys: Edge, Style
+
+--- Resolve far-end type on PowerShell (PSModule) ---
+
+Name  : Variants
+Value : {Public}
+
+Name  : LinkTemplate
+Value : vscode://file/{path}:{line}
+
+Name  : LayoutHints
+Value : {[Direction, Vertical], [Group, Module]}
+
+
+
+--- Probe: does registry expose far-end ownership on the edge? ---
+  shape has FarEndProvider   => False
+  shape has FarEndType       => False
+  shape has TargetProvider   => False
+  shape has TargetType       => False
+  shape has Owner            => False
+  shape has OwnerProvider    => False
+  shape has ForeignProvider  => False
+
+--- Probe: registry-only join (no Core, no graph objects) ---
+Attempt: use only Get-PSDrawIOProvider / Resolve-PSDrawIOShape to answer
+'which provider owns the far end of CrossProviderReference?'
+Terraform Metadata empty or absent (no join channel used).
+Join method: none — registry has no join/ownership API
+Join answer: UNANSWERABLE from registry cmdlets alone
+
+--- Probe: can we Resolve-PSDrawIOShape across providers without knowing owner? ---
+Expected failure resolving PSModule on Terraform: Provider 'Terraform' does not declare shape 'PSModule'. Declared shapes: ExplicitDependsOn, TfLocal, TfVariable, ModuleBoundary, TfResource, ImplicitReference, TfProvider, ProviderAttachment, TfModule, TfOutput, CrossProviderReference
+
+--- Placeholder types on PowerShell declaration? ---
+  PowerShell declares PSExternalCommand    => False
+  PowerShell declares PSUnresolved         => False
+  PowerShell declares PSModule             => True
+  PowerShell declares External             => True
+
+=== CROSS-PROVIDER PROOF COMPLETE ===
+Dual registration succeeded. Ownership join via registry alone: NO.

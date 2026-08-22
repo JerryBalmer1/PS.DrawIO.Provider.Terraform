@@ -79,7 +79,28 @@
                     Style = 'endArrow=open;dashed=1;dashPattern=8 4;'
                     # resource/module → provider config (incl. providers = {} passthrough)
                 }
+
+                # --- cross-provider edge (spike 2: join ownership probe) ---
+                # FINDING: wanted first-class FarEndProvider / TargetType / Owner fields
+                # so an edge could say "far end is PowerShell:PSModule". CONTRACT.md and
+                # ConvertTo-PSDrawIODeclaration store only ContractVersion, ProviderName,
+                # Capabilities, Shapes, Metadata — none of those ownership keys exist.
+                # Stopped inventing contract fields. Private Metadata / shape-key side
+                # channels are documented in docs/SPIKE-FINDINGS-CROSS-PROVIDER.md.
+                CrossProviderReference = @{
+                    Edge  = $true
+                    Style = 'endArrow=open;dashed=1;dashPattern=2 2;'
+                    # Attempted (not contract fields — private convention only, like Edge):
+                    # FarEndProvider = 'PowerShell'
+                    # FarEndType     = 'PSModule'
+                    # Those keys would round-trip inside the opaque shape hashtable if
+                    # written, but Resolve-PSDrawIOShape never interprets them and no
+                    # registry cmdlet joins them to another provider's declaration.
+                }
             }
+            # Optional Metadata is opaque (CONTRACT.md). Could stash join hints here
+            # (e.g. CrossProviderHints) — same unvalidated private-convention cost as
+            # Edge = $true. Not used as a substitute for a real ownership field.
         }
     }
 }
